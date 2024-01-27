@@ -1,8 +1,30 @@
 import { Button, Label, TextInput } from 'flowbite-react'
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 function SignUp() {
+  const [formData, setFormData] = useState({});
+const handleChange = (e) => {
+  setFormData({...formData, [e.target.id]: e.target.value})
+}
+console.log(formData)
+
+const handleSubmit = async (e) => {
+e.preventDefault();
+try {
+  const res = await fetch('/api/auth/sign-up', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(formData),    
+  });
+  const data = await res.json();
+  console.log(data);
+} catch (err) {
+  console.log(err)
+}
+}
+
+
   return (
     <div className='min-h-screen mt-20'>
       
@@ -18,31 +40,31 @@ function SignUp() {
         </div>
         {/* right side */}
         <div className='flex-1'>
-          <form className='flex flex-col gap-4'>
+          <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
             <div className=''>
               <Label value='your username' />
               <TextInput 
               type='text'
               placeholder='username'            
-              id='username' />
+              id='username' onChange={handleChange}/>
             </div>
 
             <div className=''>
               <Label value='your email' />
               <TextInput 
-              type='text'
+              type='email'
               placeholder='yourmail@gmail.com'            
-              id='email' />
+              id='email' onChange={handleChange}/>
             </div>
 
             <div className=''>
               <Label value='your password' />
               <TextInput 
-              type='text'
+              type='password'
               placeholder='password'            
-              id='password' />
+              id='password' onChange={handleChange}/>
             </div>
-            <Button gradientDuoTone='purpleToPink' type='submit'>Sign Up</Button>
+            <Button gradientDuoTone='purpleToPink' type='submit' >Sign Up</Button>
           </form>
           <div className='flex flex-row gap-4 text-sm mt-5'>
             <span className=''>Have an Account?</span>
