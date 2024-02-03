@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { signInFailure, signInStart } from '../redux/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import Oauth from '../components/Oauth';
 
 function SignIn() {
   const [formData, setFormData] = useState({});
@@ -84,6 +85,7 @@ try {
               id='password' onChange={handleChange}/>
             </div>
             <Button gradientDuoTone='purpleToPink' type='submit' >Sign Up</Button>
+            <Oauth /> 
           </form>
           <div className='flex flex-row gap-4 text-sm mt-5'>
             <span className=''>Have an Account?</span>
