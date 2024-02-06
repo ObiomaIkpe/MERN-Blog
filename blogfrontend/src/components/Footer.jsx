@@ -14,7 +14,9 @@ function FooterCom() {
                     <span className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white text-4xl'>Aigo's Blog</span>
                     </Link>
                 </div>
-                <div className='grid grid-cols-2 gap-8 sm: mt-4 sm:grid-cols-3 sm:gap-6'>
+
+
+                <div className='grid grid-cols-2 gap-8 mt-4 sm:grid-cols-3 sm:gap-6'>
                     
                     {/* links Div */}
                     <div>
@@ -33,6 +35,7 @@ function FooterCom() {
                         </Footer.Link>
                     </Footer.LinkGroup>
                 </div>
+
                     {/* socials Div */}
                 <div>
                     <Footer.Title title='Follow me' />
@@ -70,18 +73,18 @@ function FooterCom() {
                 </div>
             <Footer.Divider />
 
-            <div className='w-full sm:flex sm:items-center sm:justify-center'>
+            <div className='w-full sm:flex sm:items-center sm:justify-between'>
                 <Footer.Copyright href='#' by="Tommy" year={new Date().getFullYear()}/>
             </div>
 
-            <div className='flex flex-row gap-3 sm:mt-0 md:mt-4 sm:justify-center'>
+
+                </div>
+            <div className='flex gap-6 sm:mt-0 md:mt-4 sm:justify-center'>
                 <Footer.Icon  href='#' icon={FaFacebook}/>
                 <Footer.Icon  href='#' icon={FaGithub}/>
                 <Footer.Icon  href='#' icon={FaTwitter}/>
                 <Footer.Icon  href='#' icon={FaRedditAlien}/>
             </div>
-
-                </div>
             </div>
         </div>
     </Footer>

@@ -1,7 +1,7 @@
 import { Button, Label, TextInput } from 'flowbite-react'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { signInFailure, signInStart } from '../redux/user/userSlice';
+import {signInStart, signInSuccess, signInFailure } from '../redux/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Oauth from '../components/Oauth';
 
@@ -30,9 +30,11 @@ try {
     body: JSON.stringify(formData),    
   });
   const data = await res.json();
+
   if (data.success === false){
     dispatch(signInFailure(data.message))
   }
+  
   if (res.ok){
     dispatch(signInSuccess(data));
     navigate('/');
@@ -40,14 +42,14 @@ try {
   console.log(data);
 } catch (error) {
   dispatch(signInFailure(error.message))
-  console.log(err)
+  console.log(error)
 }
 };
 
 
   return (
     <div className='min-h-screen mt-20'>
-      Sign IN
+      
         {/* left side */}
         <div className='flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-5'>
             <div className='flex-1'>
@@ -61,13 +63,7 @@ try {
         {/* right side */}
         <div className='flex-1'>
           <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
-            <div className=''>
-              <Label value='your username' />
-              <TextInput 
-              type='text'
-              placeholder='username'            
-              id='username' onChange={handleChange}/>
-            </div>
+            
 
             <div className=''>
               <Label value='your email' />
@@ -84,12 +80,12 @@ try {
               placeholder='password'            
               id='password' onChange={handleChange}/>
             </div>
-            <Button gradientDuoTone='purpleToPink' type='submit' >Sign Up</Button>
+            <Button gradientDuoTone='purpleToPink' type='submit' >Sign In</Button>
             <Oauth /> 
           </form>
           <div className='flex flex-row gap-4 text-sm mt-5'>
-            <span className=''>Have an Account?</span>
-            <Link to='/sign-in' className='text-blue-500'>Sign In</Link>
+            <span className=''>Don't have an Account?</span>
+            <Link to='/sign-up' className='text-blue-500'>Sign Up</Link>
           </div>
         </div>
       </div>

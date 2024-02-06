@@ -1,9 +1,10 @@
 import {Button} from 'flowbite-react'
 import { AiFillGoogleCircle } from 'react-icons/ai'
-import {GoogleAuthProvider, signInWithPopup} from 'firebase/auth'
+import {GoogleAuthProvider, getAuth, signInWithPopup} from 'firebase/auth'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {signInSuccess} from '../redux/user/userSlice';
+import {app} from '../firebase'
 
 function Oauth() {
   const dispatch = useDispatch();
@@ -13,9 +14,9 @@ function Oauth() {
     const handleGoogleClick = async () => {
       
         const provider = new GoogleAuthProvider();
-        provider.setCustomParameter({prompt: 'select_account'})
+        provider.setCustomParameters({prompt: 'select_account'});
         try {
-          const resultsFromGoogle = await signInWithPopup(storage, auth);
+          const resultsFromGoogle = await signInWithPopup(auth, provider);
           console.log(resultsFromGoogle);
 
           const res = await fetch('/api/auth/google', {
@@ -24,13 +25,14 @@ function Oauth() {
             body: JSON.stringify({
               name: resultsFromGoogle.user.displayName,
               email: resultsFromGoogle.user.email,
-              googlePhotoUrl: resultsFromGoogle.user.photoURL
-            })
+              googlePhotoUrl: resultsFromGoogle.user.photoURL,
+            }),
           })
-          const data = await res.json();
+          const data = await res.json() 
+          console.log(data)
           if (res.ok){
-            dispatch(signInSuccess(data));
-            navigate('/');
+            dispatch(signInSuccess(data))
+            navigate('/')
 
           }
         } catch (error) {

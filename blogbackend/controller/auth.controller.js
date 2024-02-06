@@ -30,7 +30,7 @@ export const signIn = async (req, res, next) => {
     const {email, password} = req.body;
 
     if(!email || !password || email === '' || password === ''){
-        next(errorHandler(400, 'invalid credentials'))
+        next(errorHandler(400, 'invalid credentials'))  // return next ...?
     }
 
 
@@ -52,19 +52,20 @@ export const signIn = async (req, res, next) => {
 
             res.status(200).cookie('access_token', token, {
                 httpOnly: true}).json(rest);
+
     } catch (error) {
         next(error)
     }
 }
 
 export const google = async (req, res, next) => {
-    const {email, name, photoUrl} = req.body;
+    const {email, name, googlePhotoUrl} = req.body;
 
     try {
         const user = await User.findOne({email});
         if (user) {
             const token = jwt.sign({id: user._id}, process.env.JWT_SECRET);
-            const {password:pass, ...rest} = user._doc;
+            const {password, ...rest} = user._doc;
             res.status(200).cookie('acccess_token', token, {
                 httpOnly:true
             }).json(rest);

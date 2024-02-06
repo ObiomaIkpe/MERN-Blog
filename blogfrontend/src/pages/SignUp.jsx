@@ -1,12 +1,16 @@
 import { Button, Label, TextInput, Alert, Spinner } from 'flowbite-react'
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
+import Oauth from '../components/Oauth'
 
 function SignUp() {
   const [formData, setFormData] = useState({});
   const [errorMessage, setErrorMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
 
 
 
@@ -15,21 +19,21 @@ const handleChange = (e) => {
 }
 console.log(formData);
 
-const handleClick = () => {
-  setTimeout(() => {
-    console.log('clicked')
-    setLoading(true)
-  }, 6000)
-}
+// const handleClick = () => {
+//   setTimeout(() => {
+//     console.log('clicked')
+//     setLoading(false)
+//   }, 6000)
+// }
 
 const handleSubmit = async (e) => {
-e.preventDefault();
-if (!formData.username || !formData.password || !formData.email){
-return setErrorMessage('please fill out all form fields!')
+  e.preventDefault();
+  if (!formData.username || !formData.password || !formData.email){
+  return setErrorMessage('please fill out all form fields!');
 }
 try {
   setLoading(true);
-  setErrorMessage(null)
+  setErrorMessage(null);
   const res = await fetch('/api/auth/sign-up', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
@@ -45,23 +49,22 @@ try {
     navigate('/sign-in')
   }
   console.log(data);
-} catch (err) {
-  setErrorMessage(err.message);
+} catch (error) {
   setLoading(false)
+  setErrorMessage(error.message);
 }
 }
-
-
-
 
 
 
   return (
     <div className='min-h-screen mt-20'>
       
-        {/* left side */}
+        
         <div className='flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-5'>
-            <div className='flex-1'>
+
+          {/* left side */}
+        <div className='flex-1'>
         <Link to="/" className='font-bold dark:text-white text-4xl'>
         <span className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white text-4xl'>Aigo's Blog</span>
       </Link>
@@ -77,7 +80,8 @@ try {
               <TextInput 
               type='text'
               placeholder='username'            
-              id='username' onChange={handleChange}/>
+              id='username' 
+              onChange={handleChange}/>
             </div>
 
             <div className=''>
@@ -95,21 +99,26 @@ try {
               placeholder='password'            
               id='password' onChange={handleChange}/>
             </div>
-            <Button gradientDuoTone='purpleToPink' type='submit' disabled={loading} onClick={handleClick}>
+            <Button gradientDuoTone='purpleToPink' type='submit' disabled={loading} >
               { loading ? (
                <>
-               <Spinner size='sm' /><span className='pl-3'>Loading...</span>
+               <Spinner size='sm' />
+               <span className='pl-3'>Loading...</span>
                </>
               ): 'Sign Up'}
             </Button>
+
+
+            <Oauth />
           </form>
-          <div className='flex flex-row gap-4 text-sm mt-5'>
+          <div className='flex flex-row gap-2 text-sm mt-5'>
             <span className=''>Have an Account?</span>
             <Link to='/sign-in' className='text-blue-500'>Sign In</Link>
-            { errorMessage && (
+            
+          </div>
+          { errorMessage && (
               <Alert className='mt-5' color='failure'>{errorMessage}</Alert>
             )}
-          </div>
         </div>
       </div>
     </div>
