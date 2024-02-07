@@ -1,7 +1,8 @@
 import { Alert, Button, TextInput } from 'flowbite-react'
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
-import {getDownloadURL, getStorage, uploadBytesResumable}from 'firebase/storage'
+import {app} from '../firebase'
+import {getDownloadURL, getStorage, uploadBytesResumable, ref}from 'firebase/storage'
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
@@ -17,10 +18,10 @@ function DashProfile() {
         const file = e.target.files[0]
         if (file){
             setImageFile(e.target.files[0]);
-            setImageFileUrl((Url.createObjectURL(file)))
+            setImageFileUrl((URL.createObjectURL(file)))
         }
     }
-    console.log(imageUrl, imageFileUrl)
+    //console.log(imageUrl, imageFileUrl)
 
     useEffect(() => {
         if(imageFile){
@@ -40,6 +41,7 @@ const uploadImage = () => {
         (snapshot) => {
             const progress = (snapshot.bytesTransferred) /snapshot.totalBytes * 100;
             setImageFileUploadProgress(progress.toFixed(0))
+            console.log(imageFileUploadProgress)
         },
         (error) => {
             setImageFileUploadError('could not upload image (file must be less than 2mb')
@@ -58,7 +60,7 @@ const uploadImage = () => {
 
 
   return (
-    <div className='max-w-lg p-3 w-full'>
+    <div className='max-w-lg p-3 mx-auto w-full'>
         <h1 className='my-7 text-center font-semibold text-3xl'>Profile</h1>
         <form className='flex flex-col gap-4'>
             <input type='file' accept='image/*' onChange={handleImageChange} ref={filePickerRef} hidden/>
@@ -83,7 +85,7 @@ const uploadImage = () => {
                 )}
 
             <img src={imageFileUrl || currentUser.profilePicture} alt='user'
-            className={`rounded-full w-full h-full border-8 object-cover border-[lightgray] ${imageFileUploadProgress && imageFileUploadProgress < 100 && 'opacity-60'}`} />
+            className={`rounded-full w-full h-full object-cover  border-8 border-[lightgray] ${imageFileUploadProgress && imageFileUploadProgress < 100 && 'opacity-60'}`} />
             </div>
 
             { imageFileUploadError && (
@@ -96,7 +98,11 @@ const uploadImage = () => {
             <TextInput type='text' placeholder='username'defaultValue={currentUser.username} id='username'/>
             <TextInput type='email' placeholder='yourmail@gmail.com'defaultValue={currentUser.email} id='email'/>
             <TextInput type='password' placeholder='password' id='password' />
-            <Button type='submit' gradientDuoTone='purpleToBlue' outline>
+
+            <Button 
+            type='button' 
+            gradientDuoTone='purpleToBlue' 
+            outline>
                 Update
             </Button>
         </form>
