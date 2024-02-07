@@ -2,12 +2,14 @@ import express  from "express";
 import connectDB from './connect/connectDB.js';
 import userRoutes from './routes/user.routes.js';
 import authRoutes from './routes/auth.routes.js';
+import cookieParser from 'cookie-parser';
 
 import dotenv from 'dotenv';
 dotenv.config();
 const app = express();
 
-app.use(express.json())
+app.use(express.json());
+app.use(cookieParser());
 
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
@@ -16,7 +18,7 @@ app.use((err, req, res, next) => {
 
     const statusCode = err.statusCode || 500;
     const message = err.message || 'internal server error';
-
+    console.log(err)
     res.status(statusCode).json({
         success: false,
         statusCode,
