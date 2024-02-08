@@ -1,15 +1,22 @@
-import { Alert, Button, TextInput } from 'flowbite-react'
+import { Alert, Button, Modal, TextInput } from 'flowbite-react'
+import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {app} from '../firebase'
 import {getDownloadURL, getStorage, uploadBytesResumable, ref}from 'firebase/storage'
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { updateStart, updateSuccess, updateFailure } from '../redux/user/userSlice'
-import { updateUser } from '../../../blogbackend/controller/user.controller'
+
+import { updateStart,
+    updateSuccess, 
+    updateFailure,
+    deleteUserStart,
+    deleteUserFailure,
+    deleteUserSuccess } from '../redux/user/userSlice'
+
 
 function DashProfile() {
-    const {currentUser} = useSelector(state => state.user)
+    const {currentUser, error, loading} = useSelector(state => state.user)
     const [imageFile, setImageFile] = useState(null);
     const [imageFileUrl, setImageFileUrl] = useState(null);
     const [imageFileUploadProgress, setImageFileUploadProgress] = useState(0);
@@ -74,6 +81,27 @@ const uploadImage = () => {
 
 }
 
+const handleDeleteUser = async () => {
+    setShowModal(false)
+    try {
+        dispatch(deleteUserStart());
+        const res = await fetch(`/api/user/delete/${currentUser._id}`, 
+        {
+            method: 'DELETE',
+
+        })
+        const data = await res.json()
+        if(!res.ok){
+            dispatch(deleteUserFailure(error.message))
+        } else {
+            dispatch(deleteUserSuccess(data))
+        }
+    } catch (error) {
+        dispatch(deleteUserFailure(error.message))  
+        
+    }
+}
+
 const handleSubmit = async (e) => {
     e.preventDefault();
     setUpdateUserError(null);
@@ -113,6 +141,8 @@ catch (error) {
     setUpdateUserError(error.message)
 }
 }
+
+
 
 
 console.log(formData)
@@ -181,11 +211,40 @@ console.log(formData)
 
 {updateUserError && (
             <Alert color='failure' className='mt-5'>
-                {updateUserSuccess}
+                {updateUserError}
             </Alert>
         )}
 
-        <Modal show={showModal} onClose={() => setShowModal(false)} popup size='md'></Modal>
+{error && (
+            <Alert color='failure' className='mt-5'>
+                {error}
+            </Alert>
+        )}
+
+
+        <Modal 
+        show={showModal} 
+        onClose={() => setShowModal(false)} 
+        popup 
+        size='md'>
+
+            <Modal.Header />
+
+            <Modal.Body>
+                <div className='text-center '>
+
+                    <HiOutlineExclamationCircle
+                    className='h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto'
+                    />
+                    <h3 className='mb-5 text-lg text-gray-500 dark:text-gray-400'> Are you sure you want to delete your account?</h3>
+
+                    <div className='flex justify-center gap-4'>
+                    <Button color='failure' onClick={handleDeleteUser}>Yes, I'm sure.</Button>
+                    <Button color='gray' onClick={() => setShowModal(false)}>No, cancel!</Button>
+                    </div>
+                </div>
+            </Modal.Body>
+        </Modal>
     </div>
   )
 }
