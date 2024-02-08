@@ -18,6 +18,7 @@ function DashProfile() {
     const [updateUserError, setUpdateUserError] = useState(null);
     const [imageFileUploading, setImageFileUploading] = useState(false)
     const [formData, setFormData] = useState({});
+    const [showModal, setShowModal] = useState(false)
     const filePickerRef = useRef();
     const dispatch = useDispatch();
 
@@ -168,7 +169,7 @@ console.log(formData)
             </Button>
         </form>
         <div className='text-red-500 flex justify-between mt-5'>
-            <span className='cursor-pointer'>Delete Account</span>
+            <span onClick={() => setShowModal(true)} className='cursor-pointer'>Delete Account</span>
             <span className='cursor-pointer'>Sign Out</span>
         </div>
 
@@ -183,6 +184,8 @@ console.log(formData)
                 {updateUserSuccess}
             </Alert>
         )}
+
+        <Modal show={showModal} onClose={() => setShowModal(false)} popup size='md'></Modal>
     </div>
   )
 }
