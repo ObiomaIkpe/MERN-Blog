@@ -4,8 +4,34 @@ import {AiOutlineSearch} from 'react-icons/ai'
 import {FaMoon, FaSun} from 'react-icons/fa'
 import {useSelector, useDispatch} from 'react-redux';
 import { toggleTheme } from '../redux/theme/themeSlice';
+import { signOutFailure, signOutSuccess } from '../redux/user/userSlice';
+
+
+
+
 
 function Header() {
+
+  const handleSignOut = async () => {
+    try {
+      const res = await fetch('/api/user/sign-out',
+      {
+            method: 'POST'
+        })
+        
+        const data = await res.json();
+        if (!res.ok){
+            console.log(data.message);
+            dispatch(signOutFailure(data.message))
+        }else{
+            dispatch(signOutSuccess())
+        }
+    } catch (error) {
+        dispatch(signOutFailure(error.message))
+        console.log(error.message)
+    }
+  }
+  
   const path = useLocation().pathname;
   const dispatch = useDispatch();
   const {currentUser} = useSelector((state) => state.user);
@@ -53,7 +79,7 @@ function Header() {
           </Link>
 
           <Dropdown.Divider />
-          <Dropdown.Item >Sign Out</Dropdown.Item>
+          <Dropdown.Item onClick={handleSignOut}>Sign Out</Dropdown.Item>
         
         </Dropdown>
        ) : ( 

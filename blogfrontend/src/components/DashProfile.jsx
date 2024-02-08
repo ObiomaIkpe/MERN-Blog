@@ -12,7 +12,9 @@ import { updateStart,
     updateFailure,
     deleteUserStart,
     deleteUserFailure,
-    deleteUserSuccess } from '../redux/user/userSlice'
+    deleteUserSuccess, 
+    signOutFailure,
+    signOutSuccess} from '../redux/user/userSlice'
 
 
 function DashProfile() {
@@ -99,6 +101,26 @@ const handleDeleteUser = async () => {
     } catch (error) {
         dispatch(deleteUserFailure(error.message))  
         
+    }
+}
+
+const handleSignOut = async () => {
+    try {
+        const res = await fetch('/api/user/sign-out',
+        {
+            method: 'POST'
+        })
+
+        const data = await res.json();
+        if (!res.ok){
+            console.log(data.message);
+            dispatch(signOutFailure(data.message))
+        }else{
+            dispatch(signOutSuccess())
+        }
+    } catch (error) {
+        dispatch(signOutFailure(error.message))
+        console.log(error.message)
     }
 }
 
@@ -200,7 +222,7 @@ console.log(formData)
         </form>
         <div className='text-red-500 flex justify-between mt-5'>
             <span onClick={() => setShowModal(true)} className='cursor-pointer'>Delete Account</span>
-            <span className='cursor-pointer'>Sign Out</span>
+            <span onClick={handleSignOut} className='cursor-pointer'>Sign Out</span>
         </div>
 
         {updateUserSuccess && (
