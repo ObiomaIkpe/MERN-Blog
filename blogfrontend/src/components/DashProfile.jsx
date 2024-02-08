@@ -216,9 +216,26 @@ console.log(formData)
             <Button 
             type='button' 
             gradientDuoTone='purpleToBlue' 
-            outline>
-                Update
+            outline
+            disabled={loading || imageFileUploading}
+            >
+                {loading ? 'Loading..' : 'Update'}
             </Button>
+
+        {
+            currentUser.isAdmin && (
+                <Link to='/create-post'>
+                <Button
+                type='button'
+                gradientDuoTone='blueToGreen'
+                className='w-full'
+                 
+                >
+                  create a post  
+                </Button>
+                </Link>
+            )
+        }
         </form>
         <div className='text-red-500 flex justify-between mt-5'>
             <span onClick={() => setShowModal(true)} className='cursor-pointer'>Delete Account</span>
