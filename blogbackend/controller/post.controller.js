@@ -2,7 +2,7 @@ import Post from "../models/posts.model.js"
 import { errorHandler } from "../utils/handleError.js"
 
 
-export const createPost = async (req, res) => {
+export const createPost = async (req, res, next) => {
         console.log(req.body)
         if(!req.user.isAdmin){
             return next(errorHandler(403, 'you are not allowed!'))
