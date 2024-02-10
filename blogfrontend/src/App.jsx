@@ -12,6 +12,7 @@ import PrivateRoute from './components/PrivateRoute'
 import PrivateRouteForAdmin from './components/PrivateRouteForAdmin'
 import CreatePost from './pages/CreatePost'
 import UpdatePost from './pages/UpdatePost'
+import PostPage from './pages/PostPage'
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
 
     {/* to be put in admin protected routes */}
       <Route path='/updatepost/:postId' element={<UpdatePost />} />
+      <Route path='/post/:postSlug' element={<PostPage />} />
       <Route path='/create-post' element={<CreatePost />} />
     </Routes>
 
