@@ -11,6 +11,7 @@ import FooterCom from './components/Footer'
 import PrivateRoute from './components/PrivateRoute'
 import PrivateRouteForAdmin from './components/PrivateRouteForAdmin'
 import CreatePost from './pages/CreatePost'
+import UpdatePost from './pages/UpdatePost'
 
 function App() {
   return (
@@ -25,7 +26,6 @@ function App() {
       </Route>
 
       <Route element={<PrivateRouteForAdmin />} >
-      <Route path='/dashboard' element={<Dashboard />} />
       </Route>
 
       <Route path='/sign-up' element={<SignUp />} />
@@ -34,7 +34,8 @@ function App() {
       <Route path='/about' element={<About />} />
 
 
-
+    {/* to be put in admin protected routes */}
+      <Route path='/updatepost/:postId' element={<UpdatePost />} />
       <Route path='/create-post' element={<CreatePost />} />
     </Routes>
 

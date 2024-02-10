@@ -52,11 +52,8 @@ const DashPosts = () => {
     const handleDeletePosts = async (req, res) => {
         setShowModal(false);
         try {
-            const res = await fetch(`/api/posts/deletepost/${postIdToDelete}/${currentUser._id}`, {
-                
-                    method: 'DELETE',
-
-                
+            const res = await fetch(`/api/posts/deletepost/${postIdToDelete}/${currentUser._id}`, {               
+                    method: 'DELETE',             
             });
 
             const data = await res.json();
@@ -177,7 +174,7 @@ const DashPosts = () => {
                     <h3 className='mb-5 text-lg text-gray-500 dark:text-gray-400'> Are you sure you want to delete your account?</h3>
 
                     <div className='flex justify-center gap-4'>
-                    <Button color='failure' onClick={handleDeleteUser}>Yes, I'm sure.</Button>
+                    <Button color='failure' onClick={handleDeletePosts}>Yes, I'm sure.</Button>
                     <Button color='gray' onClick={() => setShowModal(false)}>No, cancel!</Button>
                     </div>
                 </div>
