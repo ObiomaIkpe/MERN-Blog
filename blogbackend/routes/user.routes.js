@@ -8,7 +8,8 @@ router.get('/test', test)
 router.patch('/update/:userId', verifyToken, updateUser);
 router.delete('/delete/:userId', verifyToken, deleteUser);
 router.post('/sign-out', signOut)
-router.get('/getusers', verifyToken, getAllUsers)
+router.get('/getusers', verifyToken, getAllUsers);
+
 
 
 
