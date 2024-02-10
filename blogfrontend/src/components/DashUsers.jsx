@@ -180,4 +180,4 @@ const DashUsers = () => {
   )
 }
 
-export default DashPosts
+export default DashUsers

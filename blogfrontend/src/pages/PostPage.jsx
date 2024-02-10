@@ -64,3 +64,5 @@ const PostPage = () => {
      </main>
      )
   }
+
+  export default PostPage
