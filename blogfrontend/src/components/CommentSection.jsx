@@ -54,6 +54,10 @@ const CommentSection = ({postId}) => {
 
     }
 
+  const handleLike = async (commentId) => {
+
+  }
+
 
   return (
 
