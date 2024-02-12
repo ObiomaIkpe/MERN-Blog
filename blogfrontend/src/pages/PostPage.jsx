@@ -1,6 +1,7 @@
 import { Button, Spinner } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import {useParams} from 'react-router-dom';
+import CommentSection from '../components/CommentSection';
 
 
 const PostPage = () => {
@@ -61,6 +62,8 @@ const PostPage = () => {
     <div className='max-w-4xl mx-auto mx-auto w-full'>
             
         </div>
+
+        <CommentSection postId={post._id}/>
      </main>
      )
   }

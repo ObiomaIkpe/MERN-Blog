@@ -2,6 +2,7 @@ import express  from "express";
 import connectDB from './connect/connectDB.js';
 import userRoutes from './routes/user.routes.js';
 import authRoutes from './routes/auth.routes.js';
+import commentRoutes from './routes/comment.routes.js';
 import cookieParser from 'cookie-parser';
 import postRoutes from './routes/post.routes.js'
 
@@ -14,7 +15,8 @@ app.use(cookieParser());
 
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
-app.use('/api/posts', postRoutes)
+app.use('/api/posts', postRoutes);
+app.use('/api/comment/', commentRoutes);
 
 app.use((err, req, res, next) => {
 
