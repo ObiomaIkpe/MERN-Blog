@@ -54,3 +54,11 @@ export const likeComment = async (req, res, next) => {
     }
 }
 
+export const editComment = (req, res, next) => {
+    try {
+        
+    } catch (error) {
+       next(error) 
+    }
+}
+

@@ -30,6 +30,9 @@ app.use((err, req, res, next) => {
     });
 })
 
+app.get('/', (req, res) => {
+    res.send('1')
+})
 
 const start = async () => {
     try {

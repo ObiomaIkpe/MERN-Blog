@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import moment from 'moment';
 import { FaThumbsUp} from 'react-icons/fa'
 
 
