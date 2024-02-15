@@ -1,4 +1,4 @@
-import { Alert, Button, Modal, TextInput } from 'flowbite-react'
+import { Alert, Button, Modal, ModalBody, TextInput } from 'flowbite-react'
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -15,13 +15,14 @@ import { updateStart,
     deleteUserSuccess, 
     signOutFailure,
     signOutSuccess} from '../redux/user/userSlice'
+import { Link } from 'react-router-dom';
 
 
 function DashProfile() {
     const {currentUser, error, loading} = useSelector(state => state.user)
     const [imageFile, setImageFile] = useState(null);
     const [imageFileUrl, setImageFileUrl] = useState(null);
-    const [imageFileUploadProgress, setImageFileUploadProgress] = useState(0);
+    const [imageFileUploadProgress, setImageFileUploadProgress] = useState(null);
     const [imageFileUploadError, setImageFileUploadError] = useState(false);
     const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
     const [updateUserError, setUpdateUserError] = useState(null);
@@ -50,20 +51,20 @@ function DashProfile() {
         setFormData({ ...formData, [e.target.id]: e.target.value})
     }
 
-const uploadImage = () => {
+const uploadImage = async () => {
     setImageFileUploadError(null)
     setImageFileUploading(true)
     const storage = getStorage(app);
     const filename = new Date().getTime() + imageFile.name;
     const storageRef = ref(storage, filename);
-    const uploadTask = uploadBytesResumable(storageRef, imageFile)
+    const uploadTask = uploadBytesResumable(storageRef, imageFile);
 
     uploadTask.on(
         'state_changed',
         (snapshot) => {
-            const progress = (snapshot.bytesTransferred) /snapshot.totalBytes * 100;
-            setImageFileUploadProgress(progress.toFixed(0))
-            console.log(imageFileUploadProgress)
+            const progress = (snapshot.bytesTransferred /snapshot.totalBytes) * 100;
+            setImageFileUploadProgress(progress.toFixed(0));
+            //console.log(imageFileUploadProgress)
         },
         (error) => {
             setImageFileUploadError('could not upload image (file must be less than 2mb)')
@@ -79,9 +80,8 @@ const uploadImage = () => {
                 setImageFileUploading(false)
             })
         }
-    )
-
-}
+    );
+};
 
 const handleDeleteUser = async () => {
     setShowModal(false)
@@ -127,7 +127,7 @@ const handleSignOut = async () => {
 const handleSubmit = async (e) => {
     e.preventDefault();
     setUpdateUserError(null);
-    setUpdateUserSuccess(null)
+    setUpdateUserSuccess(null);
     
 if (Object.keys(formData).length === 0) {
     setUpdateUserError('No changes made!')
@@ -143,9 +143,8 @@ try {
     method: 'PUT',
     headers: { 'Content-Type' : 'application/json',
      },
-    body: JSON.stringify(formData)
-
-    })
+    body: JSON.stringify(formData),
+    });
     const data = await res.json();
     
     if(!res.ok){
@@ -167,7 +166,7 @@ catch (error) {
 
 
 
-console.log(formData)
+//console.log(formData)
 
   return (
     <div className='max-w-lg p-3 mx-auto w-full'>

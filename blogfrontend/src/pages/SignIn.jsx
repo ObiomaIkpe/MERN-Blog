@@ -7,6 +7,7 @@ import Oauth from '../components/Oauth';
 
 function SignIn() {
   const [formData, setFormData] = useState({});
+  const [signinError, setsiginError] = useState(null)
   const {loading, error: errorMessage} = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ try {
   const data = await res.json();
 
   if (data.success === false){
+    setsiginError(data.message)
     dispatch(signInFailure(data.message))
   }
   
@@ -87,6 +89,9 @@ try {
             <span className=''>Don't have an Account?</span>
             <Link to='/sign-up' className='text-blue-500'>Sign Up</Link>
           </div>
+          {
+              signinError && <p>{signinError}</p>
+          }
         </div>
       </div>
     </div>

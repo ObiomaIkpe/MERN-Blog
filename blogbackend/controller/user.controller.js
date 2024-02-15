@@ -2,12 +2,12 @@ import { errorHandler } from "../utils/handleError.js";
 import bcryptjs from 'bcryptjs'
 import User from '../models/user.model.js'
 
-export const test = (req, res) => {
+export const test = (req, res) => { 
     res.json({message: 'test route'})
 }
 
 export const updateUser = async (req, res, next) => {
-    if (req.user.userId !== req.params.userId) {
+    if (req.user.id !== req.params.userId) {
       return next(errorHandler(403, 'You are not allowed to update this user'));
     }
     if (req.body.password) {
@@ -30,10 +30,9 @@ export const updateUser = async (req, res, next) => {
       }
       if (!req.body.username.match(/^[a-zA-Z0-9]+$/)) {
         return next(
-          errorHandler(400, 'Username can only contain letters and numbers')
-        );
+          errorHandler(400, 'Username can only contain letters and numbers'));
       }
-    }
+    
     try {
       const updatedUser = await User.findByIdAndUpdate(
         req.params.userId,
@@ -45,8 +44,8 @@ export const updateUser = async (req, res, next) => {
             password: req.body.password,
           },
         },
-        { new: true }
-      );
+        { new: true });
+        
       const { password, ...rest } = updatedUser._doc;
       res.status(200).json(rest);
     } catch (err) {
@@ -54,6 +53,7 @@ export const updateUser = async (req, res, next) => {
       console.log(err)
     }
   };
+}
   
 
 export const deleteUser = async (req, res, next) => {

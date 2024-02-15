@@ -22,9 +22,9 @@ app.use('/api/comments/', commentRoutes);
 
 app.use(express.static(path.join(__dirname, '/client/dist')));
 
-app.get('*', (req, res) => {
-    res.sendFile()
-})
+// app.get('*', (req, res) => {
+//     res.sendFile()
+// })
 
 app.use((err, req, res, next) => {
 
