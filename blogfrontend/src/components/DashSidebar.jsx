@@ -1,5 +1,5 @@
 import { Sidebar } from 'flowbite-react'
-import {HiUser, HiArrowSmRight, HiDocumentText, HiOutlineUserGroup, HiChartPie} from 'react-icons/hi';
+import {HiUser, HiArrowSmRight, HiDocumentText, HiOutlineUserGroup, HiChartPie, HiAnnotation} from 'react-icons/hi';
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import {  useDispatch } from 'react-redux';
