@@ -34,7 +34,7 @@ function Header() {
 
   const handleSignOut = async () => {
     try {
-      const res = await fetch('/api/user/sign-out',
+      const res = await fetch('/api/user/signout',
       {
             method: 'POST'
         })

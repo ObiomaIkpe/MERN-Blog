@@ -49,8 +49,9 @@ try {
 };
 
 
-  return (
-    <div className='min-h-screen mt-20'>
+return (
+  <div className='min-h-screen mt-20'>
+      
       
         {/* left side */}
         <div className='flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-5'>
@@ -58,6 +59,8 @@ try {
         <Link to="/" className='font-bold dark:text-white text-4xl'>
         <span className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white text-4xl'>Aigo's Blog</span>
       </Link>
+
+      
       <p className='text-sm mt-5'>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores facilis numquam deserunt pariatur vel rerum.
       </p>
@@ -65,7 +68,9 @@ try {
         {/* right side */}
         <div className='flex-1'>
           <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
-            
+          {
+          signinError && <p className='text-[#fff] text-sm mx-auto bg-red-500 p-3 rounded-lg'>{signinError}</p>
+      }
 
             <div className=''>
               <Label value='your email' />
@@ -89,9 +94,6 @@ try {
             <span className=''>Don't have an Account?</span>
             <Link to='/sign-up' className='text-blue-500'>Sign Up</Link>
           </div>
-          {
-              signinError && <p>{signinError}</p>
-          }
         </div>
       </div>
     </div>
