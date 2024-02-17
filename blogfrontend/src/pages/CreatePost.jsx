@@ -6,13 +6,15 @@ import {getDownloadURL, getStorage, uploadBytesResumable, ref} from 'firebase/st
 import {app} from '../firebase';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { useNavigate } from 'react-router-dom';
 
 
 const CreatePost = () => {
   const [file, setFile] = useState(null);
-  const [imageUploadProgress, setImageUploadProgress] = useState(0);
+  const [imageUploadProgress, setImageUploadProgress] = useState(null);
   const [imageUploadError, setImageUploadError] = useState(null);
   const [publishError, setPublishError] = useState(null);
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({})
   console.log(formData)
 
@@ -32,8 +34,7 @@ const CreatePost = () => {
       (snapshot) => {
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log(`upload is + ${progress} done`);
-        setImageUploadProgress(progress.toFixed(0));
-
+        setImageUploadProgress(progress.toFixed(0)); 
       }, (error) => {
         setImageUploadError('image upload failed');
         setImageUploadProgress(null);        
@@ -43,8 +44,7 @@ const CreatePost = () => {
           setImageUploadError(null);
           setFormData({ ...formData, image: downloadURL})
         });
-
-      })
+      });
     
     } catch (error) {
       setImageUploadError('image upload failed');
@@ -77,10 +77,10 @@ const CreatePost = () => {
       }
       if(res.ok){
         setPublishError(null);
-        navigate(`/posts/${data.slug}`)
+        navigate(`/post/${data.slug}`)
       }
     } catch (error) {
-      setPublishError('Something went wrong!')
+      setPublishError(error.message)
     }
   }
   

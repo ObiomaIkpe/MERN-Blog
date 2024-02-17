@@ -1,6 +1,6 @@
 import { Button, Spinner } from 'flowbite-react';
 import { useEffect, useState } from 'react';
-import {useParams} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import CommentSection from '../components/CommentSection';
 
 
@@ -59,7 +59,7 @@ const PostPage = () => {
     dangerouslySetInnerHTML={{__html: post && post.content}}>
     </div>
 
-    <div className='max-w-4xl mx-auto mx-auto w-full'>
+    <div className='max-w-4xl mx-auto w-full'>
             
         </div>
 
