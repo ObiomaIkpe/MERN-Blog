@@ -5,7 +5,7 @@ import { createPost, deletePosts, getPosts, updatePost } from '../controller/pos
 
 router.post('/create', verifyToken, createPost);
 router.get('/getposts', getPosts);
-router.delete('deletepost/:postId/:userId', verifyToken, deletePosts)
+router.delete('/deletepost/:postId/:userId', verifyToken, deletePosts)
 router.put('/updatepost/:postId/:userId', verifyToken, updatePost)
 
 export default router;
