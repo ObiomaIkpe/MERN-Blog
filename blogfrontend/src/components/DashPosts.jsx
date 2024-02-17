@@ -192,7 +192,6 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
-import { set } from 'mongoose';
 
 export default function DashPosts() {
   const { currentUser } = useSelector((state) => state.user);
@@ -313,7 +312,7 @@ export default function DashPosts() {
                   <Table.Cell>
                     <Link
                       className='text-teal-500 hover:underline'
-                      to={`/update-post/${post._id}`}
+                      to={`/updatepost/${post._id}`}
                     >
                       <span>Edit</span>
                     </Link>

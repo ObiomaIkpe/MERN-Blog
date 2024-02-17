@@ -7,9 +7,11 @@ import {app} from '../firebase';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 const UpdatePost = () => {
+  const {currentUser} = useSelector((state) => state.user);
   const [file, setFile] = useState(null);
   const [imageUploadProgress, setImageUploadProgress] = useState(0);
   const [imageUploadError, setImageUploadError] = useState(null);
@@ -22,11 +24,11 @@ const UpdatePost = () => {
 
 
   useEffect(() => {
-    try {
+try{
         const fetchPost = async () => {
-        const res = await fetch(`/api/posts/getposts?postId=${postId}`)
+        const res = await fetch(`/api/post/getposts?postId=${postId}`)
         const data = await res.json()
-    } 
+    
     if(!res.ok){
         console.log(data.message);
         setPublishError(data.message)
@@ -35,11 +37,12 @@ const UpdatePost = () => {
         setPublishError(null)
         setFormData(data.posts[0]);
     }
-        fetchPost()
+};
+        fetchPost();
     } catch (error) {
-        
+        console.log(error.message);
     }
-  }, [postId])
+  }, [postId]);
 
   const handleUploadImage = async () => {
     try {
@@ -81,7 +84,7 @@ const UpdatePost = () => {
     e.preventDefault();
     try {
       
-      const res = await fetch(`/api/posts/updatepost/${formData._id}/${currentUser._id}`, {
+      const res = await fetch(`/api/post/updatepost/${formData._id}/${currentUser._id}`, {
         method: 'PUT',
         headers: 
           {'Content-Type' : 'application/json'},
@@ -102,10 +105,10 @@ const UpdatePost = () => {
       }
       if(res.ok){
         setPublishError(null);
-        navigate(`/posts/${data.slug}`)
+        navigate(`/post/${data.slug}`)
       }
     } catch (error) {
-      setPublishError('Something went wrong!')
+      setPublishError(error.message)
     }
   }
   
