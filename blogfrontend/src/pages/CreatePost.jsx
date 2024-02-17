@@ -56,7 +56,7 @@ const CreatePost = () => {
     e.preventDefault();
     try {
       
-      const res = await fetch('/api/posts/create', {
+      const res = await fetch('/api/post/create', {
         method: 'POST',
         headers: 
           {'Content-Type' : 'application/json'},

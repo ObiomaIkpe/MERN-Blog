@@ -29,7 +29,11 @@ function App() {
       <Route path='/dashboard' element={<Dashboard />} />
       </Route>
 
+    {/* admin protected routes */}
       <Route element={<PrivateRouteForAdmin />} >
+      <Route path='/create-post' element={<CreatePost />} />
+      <Route path='/updatepost/:postId' element={<UpdatePost />} />
+      <Route path='/post/:postSlug' element={<PostPage />} />
       </Route>
 
       <Route path='/sign-up' element={<SignUp />} />
@@ -39,10 +43,6 @@ function App() {
       <Route path='/about' element={<About />} />
 
 
-    {/* to be put in admin protected routes */}
-      <Route path='/updatepost/:postId' element={<UpdatePost />} />
-      <Route path='/post/:postSlug' element={<PostPage />} />
-      <Route path='/create-post' element={<CreatePost />} />
     </Routes>
 
     <FooterCom />

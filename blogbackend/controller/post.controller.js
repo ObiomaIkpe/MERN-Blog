@@ -5,7 +5,7 @@ import { errorHandler } from "../utils/handleError.js"
 export const createPost = async (req, res, next) => {
         console.log(req.body)
         if(!req.user.isAdmin){
-            return next(errorHandler(403, 'you are not allowed!'))
+            return next(errorHandler(403, 'you are not allowed to create a post!'))
         }
 
         if(!req.body.title || !req.body.content) {
@@ -15,9 +15,9 @@ export const createPost = async (req, res, next) => {
         const slug = req.body.title.toLowerCase().split('').join('-').replace(/[^a-zA-Z0-9]/g, '-')
         const newPost = new Post({
             ...req.body,
-            slug,
-            id: req.user.id
-        })
+            slug,   
+            userId: req.user.id
+        });
 
 
         try {
