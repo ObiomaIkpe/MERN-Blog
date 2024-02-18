@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import {FaCheck, FaTimes} from 'react-icons/fa'
-import { Link } from 'react-router-dom';
 
 
 const DashUsers = () => {
@@ -11,28 +10,28 @@ const DashUsers = () => {
     const [users, setUsers] = useState([]);
     const [showMore, setShowMore] = useState(true);
     const [showModal, setShowModal] = useState(false)
-    const [userIdToDelete, setUserIdToDelete] = useState('')
-    console.log(userPosts)
+    const [userIdToDelete, setUserIdToDelete] = useState('');
+    //console.log(userPosts)
 
     useEffect(() => {
         const fetchUsers = async () => {
-            try {
-                const res = await fetch(`/api/user/getusers`)
-                const data = await res.json();
-                if(res.ok){
-                    setUsers(data.users)
-                    if(data.users.length < 9){
-                        setShowMore(false)
-                    }
-                }
-            } catch (error) {
-                
+          try {
+            const res = await fetch('/api/user/getusers');
+            const data = await res.json();
+            if (res.ok) {
+              setUsers(data.users);
+              if (data.users.length < 9) {
+                setShowMore(false);
+              }
             }
-            if (currentUser.isAdmin){
-                fetchUsers()
-            }
+          } catch (error) {
+            console.log(error.message);
+          }
+        };
+        if (currentUser.isAdmin) {
+          fetchUsers();
         }
-    }, [currentUser._id])
+      }, [currentUser._id]);
 
     const handleShowMore = async () => {
         const startIndex = users.length();
@@ -89,15 +88,15 @@ const DashUsers = () => {
                     </Table.HeadCell>
 
                     <Table.HeadCell>
+                        email
+                    </Table.HeadCell>
+
+                    <Table.HeadCell>
                         Admin
                     </Table.HeadCell>
 
                     <Table.HeadCell>
-                        Delete
-                    </Table.HeadCell>
-
-                    <Table.HeadCell>
-                        <span>Edit</span>
+                        <span>Delete</span>
                     </Table.HeadCell>
                 </Table.Head>
 
