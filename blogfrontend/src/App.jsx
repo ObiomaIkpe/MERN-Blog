@@ -33,7 +33,6 @@ function App() {
       <Route element={<PrivateRouteForAdmin />} >
       <Route path='/create-post' element={<CreatePost />} />
       <Route path='/updatepost/:postId' element={<UpdatePost />} />
-      <Route path='/post/:postSlug' element={<PostPage />} />
       </Route>
 
       <Route path='/sign-up' element={<SignUp />} />
@@ -41,8 +40,7 @@ function App() {
       <Route path='/search' element={<Search />} />
       <Route path='/projects' element={<Projects/>} />
       <Route path='/about' element={<About />} />
-
-
+      <Route path='/post/:postSlug' element={<PostPage />} />
     </Routes>
 
     <FooterCom />
