@@ -14,7 +14,7 @@ const CommentSection = ({postId}) => {
   useEffect(() => {
     const getComments = async () => {
       try {
-        const res = await fetch(`/api/comments/getPostComments/${postId}`);
+        const res = await fetch(`/api/comment/getpostcomments/${postId}`);
         if(res.ok){
           const data = await res.json();
           setComments(data)
@@ -26,7 +26,7 @@ const CommentSection = ({postId}) => {
       getComments()
   }, [postId])
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if(comment.length > 200){
@@ -38,7 +38,7 @@ const CommentSection = ({postId}) => {
         headers: {
           'Content-Type': 'application/json'
         }, 
-        body: JSON.stringify({content: comment, postId, userId: currentUser._id})
+        body: JSON.stringify({content: comment, postId, userId: currentUser._id}),
       })
       const data = await res.json()
       if (res.ok){
@@ -64,18 +64,26 @@ const CommentSection = ({postId}) => {
 {currentUser ? (
   <div className='flex items-center gap-1 my-5 text-sm text-gray-500'>
     <p>Signed in as </p>
-    <img src={currentUser.profilePicture} alt='' />
-    <Link to={'/dashboard?tab=profile'} className='text-sm text-cyan-500 hover:underline'>@{currentUser.username}</Link>
+    <img 
+    className='h-5 w-5 object-cover rounded-full'
+    src={currentUser.profilePicture} alt= {currentUser.username} />
+    <Link to={'/dashboard?tab=profile'} 
+    className='text-sm text-cyan-500 hover:underline'>
+      @{currentUser.username}
+      </Link>
     </div>
 ) : (
   <div className='text-sm text-teal-500 my-5 flex gap-1'>
-    You must be signed in to command.
+    You must be signed in to comment.
     <Link className='text-blue-500 hover:underline' to={'/sign-in'}>Sign in</Link>
   </div>
 ) }
 
 {currentUser && (
-  <form onSubmit={handleSubmit} className='border border-teal-500 rounded-md p-3'>
+  <form 
+   onSubmit={handleSubmit}
+   className='border border-teal-500 rounded-md p-3'>
+    
     <Textarea 
     placeholder='add a comment...'
     rows='3'
@@ -86,9 +94,7 @@ const CommentSection = ({postId}) => {
 
     <div className='flex justify-between items-center'>
       <p className='text-gray-500 text-xs'>{200 - comment.length} characters remaining.</p>
-      <Button outline gradientDuoTone='purpleToBlue' type='submit'
-      
-      />
+      <Button className='mt-3' outline gradientDuoTone='purpleToBlue' type='submit'>Submit</Button>
     </div>
     {
       commentEror && (
@@ -116,7 +122,7 @@ const CommentSection = ({postId}) => {
             key={comment._id}
             comment={comment}
             onLike={handleLike}
-            onEdit={handleEdit}
+            // onEdit={handleEdit}
             onDelete={(commentId) => {
               setShowModal(true);
               setCommentToDelete(commentId)
@@ -125,9 +131,6 @@ const CommentSection = ({postId}) => {
           ))}
           </>
     )}
-
-
-
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { FaThumbsUp} from 'react-icons/fa'
+import moment from 'moment'
 
 
 const Comment = ({comment, onLike}) => {
@@ -19,6 +20,8 @@ const Comment = ({comment, onLike}) => {
         }
         getUser()
     }, [comment])
+
+    
   return (
     <div className="flex p-4 dark:border-gray-600 text-sm ">
         <div className="flex flex-shrink-0 mr-3">
