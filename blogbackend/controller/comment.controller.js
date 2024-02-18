@@ -30,7 +30,7 @@ export const getPostComments = async(req, res, next) => {
  } catch (error) {
     console.log(error)
     next(error)
- }
+ } 
 }
 
 export const likeComment = async (req, res, next) => {
