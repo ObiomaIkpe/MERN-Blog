@@ -153,7 +153,7 @@ const navigate = useNavigate();
           )}
           {
             !loading && posts && posts.map((post) => {
-              <PostCard key={post._id} post={post}/>
+              <PostCard key={post._id} post={post}/> 
             })
           }
           {

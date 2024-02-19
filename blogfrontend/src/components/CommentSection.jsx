@@ -67,15 +67,14 @@ const CommentSection = ({postId}) => {
           })
             if(res.ok){
               const data = await res.json();
-              setComments(comments.map((comment) => {
+              setComments(comments.map((comment) => 
                 comment._id === commentId ? {
                   ...comment,
                   likes: data.likes,
                   numberOfLikes: data.likes.length,
                 }
                 : comment
-              })
-              )
+              ))
 
           
         }
@@ -143,23 +142,14 @@ const CommentSection = ({postId}) => {
         </div>
         </div>
  
-        { comments && (
-          comments.map((comment) => (
-            <Comment 
-            key={comment._id}
-            comment={comment}
-            onLike={handleLike}
-            // onEdit={handleEdit}
-            onDelete={(commentId) => {
-              setShowModal(true);
-              setCommentToDelete(commentId)
-            }}
-            />
-         ) ))} 
+        {
+          comments.map((comment) => ( 
+            <Comment key={comment._id} comment={comment} onLike={handleLike} />
+          ))
+        }
           </>
     )}
     </div>
-  )
-}
+  )}
 
 export default CommentSection
