@@ -8,23 +8,24 @@ function Home() {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await fetch('/api/posts/getPosts');
+      const res = await fetch('/api/post/getPosts');
       const data = await res.json();
       setPosts(data.posts)
     }
+    fetchPosts()
   }, [])
   return (
     <div>
       <div className='flex flex-col gap-6 px-3 p-28 max-w-6xl mx-auto'>
         <h1 className='text-3xl font-bold lg:text-6xl'>welcome to my blog</h1>
-        <p className='text-gray-500 text-xs sm:text-sm'>lorem30</p>
+        <p className='text-gray-500 text-xs sm:text-sm'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque pariatur quo doloribus quam recusandae, voluptatum exercitationem obcaecati perferendis blanditiis quasi. Voluptatibus ad culpa tenetur rerum illo consectetur ex cumque animi?</p>
       <Link to='/search' className='text-xs sm:text-sm text-teal-500 font-bold hover:underline'>
         View all posts.
       </Link>
       </div>
 
       <div className='p-3 bg-amber-100 dark:bg-slate-700'>
-        <CallToAction />
+        
       </div>
       <div className='max-w-6xl mx-auto p-3 flex flex-col gap-8 py-7'>
         {
@@ -43,6 +44,7 @@ function Home() {
               </div>
             </div>
           )}
+          <CallToAction />
       </div>
     </div>
   )}

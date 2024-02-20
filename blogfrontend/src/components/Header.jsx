@@ -19,7 +19,7 @@ function Header() {
   const dispatch = useDispatch();
   const {currentUser} = useSelector((state) => state.user);
   const { theme } = useSelector((state) => state.theme);
-  const location = useLocation();
+  const location = useLocation()
   const navigate = useNavigate();
 
   useEffect(() => {
