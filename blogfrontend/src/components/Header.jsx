@@ -3,8 +3,7 @@ import {Link, useLocation, useNavigate} from 'react-router-dom'
 import {AiOutlineSearch} from 'react-icons/ai'
 import {FaMoon, FaSun} from 'react-icons/fa'
 import {useSelector, useDispatch} from 'react-redux';
-import { toggleTheme } from '../redux/theme/themeSlice';
-
+import { toggleTheme } from '../redux/theme/themeSlice'
 import { signOutFailure, signOutSuccess } from '../redux/user/userSlice';
 import { useEffect, useState } from 'react';
 
@@ -79,14 +78,15 @@ function Header() {
          onChange={(e) => setSearchTerm(e.target.value)}
         />
       </form>
-      <Button className='w-12 h-10 lg:hidden' color='gray' pill>
-        <AiOutlineSearch/>
-      </Button >
+      {/* <Button className='w-12 h-10 lg:hidden' color='gray' pill>
+        
+        {/* <AiOutlineSearch/> 
+      </Button > */}
 
       <div className='flex gap-2 md:order-2'>
-          <Button className='w-12 h-10 hidden sm:inline' color='gray' pill 
+          <Button className='w-12 h-10 sm:inline' color='gray' pill 
           onClick={() => dispatch(toggleTheme())}>
-        {theme === 'light' ? <FaSun/> : <FaMoon />}                                                                                                                                                       
+        {theme === 'dark' ? <FaMoon /> : <FaSun/>}                                                                                                                                                       
           </Button>
       {currentUser ? (
         <Dropdown 
