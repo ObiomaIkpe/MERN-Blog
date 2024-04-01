@@ -13,12 +13,12 @@ export const signUp = async (req, res, next) => {
     }
 
     const hashedPassword = bcryptjs.hashSync(password, 10);
-
+    
     const newUser = new User({username, email, password: hashedPassword});
-
+    
     try {
         await newUser.save();
-        res.json({message: 'sign up successful!'})
+        res.json({message: 'sign up successful!', newUser})
     }
         
      catch (err) {
@@ -50,7 +50,7 @@ export const signIn = async (req, res, next) => {
 
             const { password: pass, ...rest } = validUser._doc;
 
-            res.status(200).cookie('access_token', token, {
+            res.status(200).cookie('token,access_token',  {
                 httpOnly: true}).json(rest);
 
     } catch (error) {
