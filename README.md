@@ -9,16 +9,17 @@ This will install all dependencies and get the backend server running.
 
 Next, cd /blogfrontend
 >    npm install && npm run dev
-``  `
+```
 
-###  > link to deployed version ---- 
+#### link to deployed version ---- 
+> 
 
-### FrontEnd!
+###  What happenend at the front end.
 On the front-end, I used redux to manage global state, especially for features like user 
 logged-in and sign-up states, whose status are used at different parts of the application.
 
 still on the front-end, there is a user dashboard with admin features, but the admin features are 
-only available for users who are registered admins (which is still verified on the backend).
+only available for users who are registered admins (which is verified on the backend).
 
 the user dashboard page has a responsive sidebar. clicking on each link on the sides of the sidebar renders the corresponding component. eg. when logged-in as admin, clicking on the "posts" renders all the posts of all the users. Same logic applies to all sidebar links.
 
