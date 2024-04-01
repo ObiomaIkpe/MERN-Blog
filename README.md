@@ -1,12 +1,15 @@
 This full stack blog application was built with quite interesting features.
 
 ## getting started!
-after the downloading or cloning the repository, from your terminal:
+after the downloading or cloning the repository, from your terminal(you may have to split your terminal, as the frontend and backend run on different servers!):
 ```
->    npm install && cd blogfrontend && npm install
+From the root of the folder, run
+>    npm install && npm run dev
+This will install all dependencies and get the backend server running.
 
->    npm run dev && cd blogfrontend && npm run dev
-```
+Next, cd /blogfrontend
+>    npm install && npm run dev
+``  `
 
 ###  > link to deployed version ---- 
 
