@@ -4,17 +4,34 @@ This full stack blog application was built with quite interesting features.
 after the downloading or cloning the repository, from your terminal:
     npm install && cd blogfrontend && npm install
 
+    npm run dev && cd blogfrontend && npm run dev
 
+link to deployed version ---- 
+
+### FrontEnd!
 On the front-end, I used redux to manage global state, especially for features like user 
-login and sign-up states, whose status are used at different parts of the application.
+logged-in and sign-up states, whose status are used at different parts of the application.
 
 still on the front-end, there is a user dashboard with admin features, but the admin features are 
 only available for users who are registered admins (which is still verified on the backend).
 
-the user dashboard page has a responsive sidebar. clicking on each link on the sides of the sidebar renders the corresponding component. eg. when logged-in as logged in as admin, clicking on the posts, renders all the posts of all the users, and the logic continues. Same logic applies to all sidebar links.
+the user dashboard page has a responsive sidebar. clicking on each link on the sides of the sidebar renders the corresponding component. eg. when logged-in as admin, clicking on the "posts" renders all the posts of all the users. Same logic applies to all sidebar links.
 
-Each blog post has a comment section. Readers can comment on any post they like, and also edit comments, as long as the comment belongs to them. However, the admin can edit any comment irrespective of the owner. Comments can also be liked or unliked.
+Each blog post has a comment section. Readers can comment and like any post, and also edit comments, as long as the comment belongs to them. However, the admin can edit any comment irrespective of the owner.
 
 on the main page, there is a searchbox, where users can easily input the search terms and criteria they want, and all the blog posts that match those listings will be returned
 
 The admin feature is quite interesting, the admin has access to almost all data on the web app from their frontend. from being able to create, update and delete posts,to deleting any comment attached to posts.
+
+### Backend
+the backend is where I handled all the logic. Ensuring that users have unique emails, password encryption, and database calls were all done from the backend. 
+
+Error handling is treated specially, as there are instances in our code where we'll need to graciously return errors while giving the user a good reason why there is an error, eg "unauthorized access" etc.
+
+for easier code readability, the routes and controller functions of all the resources are separated into different files.
+
+
+Database models are designed according to needs. 
+
+
+This blog application gave me a first hand experience on fullstack web development experience.
