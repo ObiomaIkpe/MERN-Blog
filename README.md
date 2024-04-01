@@ -2,11 +2,13 @@ This full stack blog application was built with quite interesting features.
 
 ## getting started!
 after the downloading or cloning the repository, from your terminal:
-    npm install && cd blogfrontend && npm install
+```
+>    npm install && cd blogfrontend && npm install
 
-    npm run dev && cd blogfrontend && npm run dev
+>    npm run dev && cd blogfrontend && npm run dev
+```
 
-link to deployed version ---- 
+###  > link to deployed version ---- 
 
 ### FrontEnd!
 On the front-end, I used redux to manage global state, especially for features like user 
@@ -26,7 +28,7 @@ The admin feature is quite interesting, the admin has access to almost all data 
 ### Backend
 the backend is where I handled all the logic. Ensuring that users have unique emails, password encryption, and database calls were all done from the backend. 
 
-Error handling is treated specially, as there are instances in our code where we'll need to graciously return errors while giving the user a good reason why there is an error, eg "unauthorized access" etc.
+Error handling is treated specially, as there are instances in our code where we'll need to graciously return errors while giving the user a good reason why there is an error, eg **unauthorized** etc.
 
 for easier code readability, the routes and controller functions of all the resources are separated into different files.
 
