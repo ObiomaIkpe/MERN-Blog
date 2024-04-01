@@ -40,4 +40,4 @@ for easier code readability, the routes and controller functions of all the reso
 Database models are designed according to needs. 
 
 
-This blog application gave me a first hand experience on fullstack web development experience.
+This blog application gave me a first-hand fullstack web development experience.
